@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {
+@theme{
   /* Color Palette — mục 4 spec */
   --color-primary: #2563EB;
   --color-secondary: #F8FAFC;

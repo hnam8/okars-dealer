@@ -1,0 +1,441 @@
+# OKars Dealer - Project Specification (v1.0)
+
+## 1. Project Overview
+
+### Project Name
+OKars Dealer – Online Car Marketplace
+
+### Project Type
+Frontend Web Application
+
+### Description
+OKars Dealer is a modern online car marketplace where customers can browse, compare, and purchase new or used vehicles. Dealers can showcase their inventory through professional vehicle listings.
+
+The goal is to provide a clean, trustworthy, responsive, and user-friendly experience that makes buying a car simple and enjoyable.
+
+---
+
+# 2. Project Goals
+
+- Build a professional car marketplace.
+- Create a responsive website for desktop, tablet, and mobile.
+- Increase customer trust through a modern UI.
+- Provide fast and intuitive navigation.
+- Prepare the frontend for backend integration.
+- Follow React best practices.
+
+---
+
+# 3. Target Users
+
+## Customers
+- Search cars
+- Filter vehicles
+- Compare cars
+- View vehicle details
+- Contact dealer
+- Save favorite cars
+
+## Dealers
+- Display inventory
+- Manage vehicle listings
+- Receive customer inquiries
+
+---
+
+# 4. Design Style
+
+Theme:
+- Modern
+- Bright
+- Clean
+- Professional
+- Premium
+- Trustworthy
+
+Color Palette
+
+Primary
+- #2563EB
+
+Secondary
+- #F8FAFC
+
+Accent
+- #F97316
+
+Text
+- #111827
+
+Background
+- #FFFFFF
+
+Border
+- #E5E7EB
+
+---
+
+# 5. Typography
+
+Font Family
+- Inter
+or
+- Poppins
+
+Style
+- Large headings
+- Easy readability
+- Spacious layout
+
+---
+
+# 6. Technology Stack
+
+Frontend
+- React 19
+- Vite
+- React Router
+- Axios
+- Tailwind CSS
+- React Icons
+
+Development
+- Git
+- GitHub
+- ESLint
+- Prettier
+
+Deployment
+- Vercel
+or
+- Netlify
+
+---
+
+# 7. Folder Structure
+
+src/
+
+components/
+
+pages/
+
+layouts/
+
+assets/
+
+hooks/
+
+services/
+
+utils/
+
+context/
+
+constants/
+
+styles/
+
+App.jsx
+
+main.jsx
+
+---
+
+# 8. Main Pages
+
+## Home
+
+- Hero Banner
+- Featured Cars
+- Categories
+- Brands
+- Latest Cars
+- Customer Reviews
+- CTA
+
+---
+
+## Cars
+
+- Car Grid
+- Search
+- Filters
+- Pagination
+- Sorting
+
+---
+
+## Car Detail
+
+- Image Gallery
+- Specifications
+- Features
+- Description
+- Dealer Information
+- Similar Cars
+
+---
+
+## Compare Cars
+
+- Side-by-side comparison
+- Highlight differences
+
+---
+
+## Favorites
+
+- Saved vehicles
+
+---
+
+## About
+
+- Company
+- Mission
+- Team
+
+---
+
+## Contact
+
+- Contact Form
+- Google Map
+- Social Media
+
+---
+
+# 9. Components
+
+Navbar
+
+Footer
+
+Hero Banner
+
+Car Card
+
+Search Bar
+
+Brand Card
+
+Category Card
+
+Feature Card
+
+Review Card
+
+Button
+
+Input
+
+Modal
+
+Drawer
+
+Pagination
+
+Loading Spinner
+
+Breadcrumb
+
+Badge
+
+---
+
+# 10. Car Information
+
+Each car includes
+
+- Images
+- Brand
+- Model
+- Year
+- Price
+- Mileage
+- Fuel Type
+- Transmission
+- Engine
+- Horsepower
+- Color
+- Interior
+- Description
+- Features
+- Dealer
+- Location
+- Status
+
+---
+
+# 11. Responsive Breakpoints
+
+Mobile
+
+320px
+
+Tablet
+
+768px
+
+Laptop
+
+1024px
+
+Desktop
+
+1440px
+
+---
+
+# 12. UI Principles
+
+- Clean
+- Bright
+- Spacious
+- Minimal
+- Accessible
+- Easy Navigation
+- Fast Loading
+
+---
+
+# 13. Git Workflow
+
+main
+
+development
+
+feature/navbar
+
+feature/homepage
+
+feature/car-list
+
+feature/car-detail
+
+feature/contact
+
+feature/auth
+
+Each feature should have its own branch.
+
+Commit Format
+
+feat:
+
+fix:
+
+style:
+
+refactor:
+
+docs:
+
+test:
+
+chore:
+
+Example
+
+feat: create responsive navbar
+
+fix: search filter bug
+
+style: improve homepage spacing
+
+---
+
+# 14. Future Features
+
+Authentication
+
+Dealer Dashboard
+
+Admin Dashboard
+
+Payment
+
+Booking Test Drive
+
+Live Chat
+
+Wishlist
+
+Dark Mode
+
+Notifications
+
+AI Car Recommendation
+
+Recently Viewed
+
+Car Comparison
+
+Review System
+
+---
+
+# 15. Performance Goals
+
+Lazy Loading
+
+Image Optimization
+
+Code Splitting
+
+Reusable Components
+
+SEO Friendly
+
+Accessibility
+
+Responsive Design
+
+Fast Rendering
+
+---
+
+# 16. Coding Standards
+
+Use Functional Components
+
+Use Hooks
+
+Keep Components Small
+
+Reusable UI
+
+Avoid Duplicate Code
+
+Meaningful Variable Names
+
+Consistent Folder Structure
+
+Comment Complex Logic
+
+Follow ESLint Rules
+
+---
+
+# 17. Deliverables
+
+✔ Responsive React Website
+
+✔ GitHub Repository
+
+✔ Documentation
+
+✔ Clean Code
+
+✔ Component Library
+
+✔ Ready for Backend Integration
+
+✔ Production Ready UI
+
+---
+
+# Project Vision
+
+Build one of the most modern, professional, responsive, and user-friendly online car marketplace websites using React while following industry best practices for scalability, maintainability, and clean architecture.

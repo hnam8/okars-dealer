@@ -7,6 +7,7 @@ function FormField({
   error,
   placeholder,
   required = false,
+  disabled = false,
 }) {
   return (
     <div>
@@ -20,7 +21,8 @@ function FormField({
         onChange={(e) => onChange(e.target.value)}
         onBlur={onBlur}
         placeholder={placeholder}
-        className={`w-full px-4 py-2.5 border rounded-lg bg-background text-text focus:outline-none focus:ring-2 transition-all ${
+        disabled={disabled}
+        className={`w-full px-4 py-2.5 border rounded-lg bg-background text-text focus:outline-none focus:ring-2 transition-all disabled:bg-secondary disabled:text-text/50 disabled:cursor-not-allowed ${
           error
             ? 'border-red-400 focus:ring-red-200'
             : 'border-border focus:ring-primary/30 focus:border-primary'

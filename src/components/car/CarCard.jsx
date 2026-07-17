@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
-import { HiHeart, HiOutlineHeart } from 'react-icons/hi'
+import { HiHeart, HiOutlineHeart, HiOutlineShoppingCart, HiShoppingCart } from 'react-icons/hi'
 import Badge from '../common/Badge'
 import { formatPrice, formatMileage } from '../../utils/formatters'
 import { carDetailPath } from '../../constants/routes'
 import { useFavorites } from '../../context/FavoritesContext'
 import { useCompare } from '../../context/CompareContext'
+import { useCart } from '../../context/CartContext'
 
 function CarCard({ car }) {
   const {
@@ -15,8 +16,10 @@ function CarCard({ car }) {
   const isSold = status === 'sold'
   const { isFavorite, toggleFavorite } = useFavorites()
   const { isInCompare, toggleCompare } = useCompare()
+  const { isInCart, addToCart, removeFromCart } = useCart()
   const favorited = isFavorite(id)
   const compared = isInCompare(id)
+  const inCart = isInCart(id)
 
   return (
     <div className="group bg-background border border-border rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
@@ -29,18 +32,27 @@ function CarCard({ car }) {
           />
         </Link>
 
-        <button
-          type="button"
-          aria-label={favorited ? 'Bỏ yêu thích' : 'Thêm vào yêu thích'}
-          onClick={() => toggleFavorite(id)}
-          className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-text hover:text-accent transition-colors"
-        >
-          {favorited ? (
-            <HiHeart size={18} className="text-accent" />
-          ) : (
-            <HiOutlineHeart size={18} />
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
+          <button
+            type="button"
+            aria-label={favorited ? 'Bỏ yêu thích' : 'Thêm vào yêu thích'}
+            onClick={() => toggleFavorite(id)}
+            className="w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-text hover:text-accent transition-colors"
+          >
+            {favorited ? <HiHeart size={18} className="text-accent" /> : <HiOutlineHeart size={18} />}
+          </button>
+
+          {!isSold && (
+            <button
+              type="button"
+              aria-label={inCart ? 'Bỏ khỏi yêu cầu tư vấn' : 'Thêm vào yêu cầu tư vấn'}
+              onClick={() => (inCart ? removeFromCart(id) : addToCart(id))}
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-text hover:text-primary transition-colors"
+            >
+              {inCart ? <HiShoppingCart size={18} className="text-primary" /> : <HiOutlineShoppingCart size={18} />}
+            </button>
           )}
-        </button>
+        </div>
 
         <div className="absolute top-3 left-3">
           <Badge variant={isSold ? 'sold' : 'available'}>

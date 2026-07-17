@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { HiMenu, HiX, HiOutlineHeart, HiOutlineUser } from 'react-icons/hi'
+import { HiMenu, HiX, HiOutlineHeart, HiOutlineShoppingCart, HiOutlineUser } from 'react-icons/hi'
+import { useCart } from '../../context/CartContext'
 import { ROUTES } from '../../constants/routes'
 
 const NAV_LINKS = [
@@ -13,6 +14,7 @@ const NAV_LINKS = [
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { cartIds } = useCart()
 
   const linkClass = ({ isActive }) =>
     `text-sm font-medium transition-colors ${
@@ -40,6 +42,18 @@ function Navbar() {
 
         {/* Khu vực bên phải: Favorites, Account */}
         <div className="hidden md:flex items-center gap-4">
+          <Link
+            to={ROUTES.CART}
+            className="relative text-text hover:text-primary transition-colors"
+            aria-label="Yêu cầu tư vấn"
+          >
+            <HiOutlineShoppingCart size={22} />
+            {cartIds.length > 0 && (
+              <span className="absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center rounded-full bg-accent text-white text-[10px] font-bold">
+                {cartIds.length}
+              </span>
+            )}
+          </Link>
           <Link
             to={ROUTES.FAVORITES}
             className="text-text hover:text-primary transition-colors"
@@ -88,6 +102,18 @@ function Navbar() {
               </li>
             ))}
             <li>
+              <Link
+                to={ROUTES.CART}
+                className="relative text-text hover:text-primary transition-colors"
+                aria-label="Yêu cầu tư vấn"
+            >
+                <HiOutlineShoppingCart size={22} />
+                {cartIds.length > 0 && (
+                  <span className="absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center rounded-full bg-accent text-white text-[10px] font-bold">
+                    {cartIds.length}
+                  </span>
+                )}
+              </Link>
               <Link
                 to={ROUTES.FAVORITES}
                 className="text-text hover:text-primary"

@@ -1,10 +1,12 @@
 import HeroBanner from '../components/layout/HeroBanner'
+import FeaturedCars from '../components/car/FeaturedCars'
 
 function Home() {
   return (
     <div>
       <HeroBanner />
-      {/* Featured Cars, Categories, Brands... sẽ được thêm ở các bước tiếp theo */}
+      <FeaturedCars />
+      {/* Categories, Brands, Latest Cars, Reviews, CTA sẽ thêm ở các bước sau */}
     </div>
   )
 }

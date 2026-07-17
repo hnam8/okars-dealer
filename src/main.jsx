@@ -1,13 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import App from './App.jsx'
+import { FavoritesProvider } from './context/FavoritesContext.jsx'
+import { CompareProvider } from './context/CompareContext.jsx'
+import './index.css'
 
-const container = document.getElementById('root')
-if (!container) throw new Error('Root element not found')
-
-createRoot(container).render(
+createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <FavoritesProvider>
+      <CompareProvider>
+        <App />
+      </CompareProvider>
+    </FavoritesProvider>
   </StrictMode>,
 )

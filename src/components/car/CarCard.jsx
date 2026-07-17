@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
-import { HiOutlineHeart } from 'react-icons/hi'
+import { HiHeart, HiOutlineHeart } from 'react-icons/hi'
 import Badge from '../common/Badge'
 import { formatPrice, formatMileage } from '../../utils/formatters'
 import { carDetailPath } from '../../constants/routes'
+import { useFavorites } from '../../context/FavoritesContext'
+import { useCompare } from '../../context/CompareContext'
 
 function CarCard({ car }) {
   const {
@@ -11,10 +13,13 @@ function CarCard({ car }) {
   } = car
 
   const isSold = status === 'sold'
+  const { isFavorite, toggleFavorite } = useFavorites()
+  const { isInCompare, toggleCompare } = useCompare()
+  const favorited = isFavorite(id)
+  const compared = isInCompare(id)
 
   return (
     <div className="group bg-background border border-border rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
-      {/* Ảnh + nút yêu thích + badge */}
       <div className="relative">
         <Link to={carDetailPath(id)}>
           <img
@@ -26,10 +31,15 @@ function CarCard({ car }) {
 
         <button
           type="button"
-          aria-label="Thêm vào yêu thích"
+          aria-label={favorited ? 'Bỏ yêu thích' : 'Thêm vào yêu thích'}
+          onClick={() => toggleFavorite(id)}
           className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-text hover:text-accent transition-colors"
         >
-          <HiOutlineHeart size={18} />
+          {favorited ? (
+            <HiHeart size={18} className="text-accent" />
+          ) : (
+            <HiOutlineHeart size={18} />
+          )}
         </button>
 
         <div className="absolute top-3 left-3">
@@ -39,7 +49,6 @@ function CarCard({ car }) {
         </div>
       </div>
 
-      {/* Nội dung */}
       <div className="p-4">
         <p className="text-sm text-text/60">{brand}</p>
         <Link to={carDetailPath(id)}>
@@ -59,6 +68,16 @@ function CarCard({ car }) {
           <span>•</span>
           <span>{transmission}</span>
         </div>
+
+        <label className="flex items-center gap-2 mt-3 pt-3 border-t border-border text-sm text-text/70 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={compared}
+            onChange={() => toggleCompare(id)}
+            className="accent-primary"
+          />
+          So sánh xe này
+        </label>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa'
 import { HiOutlineMail, HiOutlinePhone, HiOutlineLocationMarker } from 'react-icons/hi'
 import { ROUTES } from '../../constants/routes'
+import { SOCIAL_LINKS } from '../../constants/socialLinks'
 
 const QUICK_LINKS = [
   { label: 'Trang chủ', to: ROUTES.HOME },
@@ -11,11 +11,7 @@ const QUICK_LINKS = [
   { label: 'Liên hệ', to: ROUTES.CONTACT },
 ]
 
-const SOCIAL_LINKS = [
-  { icon: FaFacebookF, href: 'https://facebook.com', label: 'Facebook' },
-  { icon: FaInstagram, href: 'https://instagram.com', label: 'Instagram' },
-  { icon: FaYoutube, href: 'https://youtube.com', label: 'Youtube' },
-]
+
 
 function Footer() {
   return (

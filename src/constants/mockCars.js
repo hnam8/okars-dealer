@@ -19,6 +19,12 @@ export const MOCK_CARS = [
     location: 'Hà Nội',
     status: 'available',
     image: 'https://placehold.co/600x400/2563EB/FFFFFF?text=Toyota+Camry',
+    images: [
+    'https://placehold.co/800x600/2563EB/FFFFFF?text=Camry+1',
+    'https://placehold.co/800x600/1e40af/FFFFFF?text=Camry+2',
+    'https://placehold.co/800x600/1e3a8a/FFFFFF?text=Camry+3',
+    'https://placehold.co/800x600/2563EB/FFFFFF?text=Camry+4',
+  ],
   },
   {
     id: 2,

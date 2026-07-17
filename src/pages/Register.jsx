@@ -5,6 +5,7 @@ import Button from '../components/common/Button'
 import { useFormValidation } from '../hooks/useFormValidation'
 import { isValidEmail, isStrongPassword, isValidPhone } from '../utils/validators'
 import { ROUTES } from '../constants/routes'
+import { useAuth } from '../context/AuthContext'
 
 const validationRules = {
   fullName: (value) => {
@@ -37,6 +38,7 @@ const validationRules = {
 
 function Register() {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const { values, errors, handleChange, handleBlur, validateAll } = useFormValidation(
     { fullName: '', email: '', phone: '', password: '', confirmPassword: '' },
     validationRules
@@ -49,8 +51,8 @@ function Register() {
     if (!isValid) return
 
     // TODO: thay bằng gọi API thật qua services/authService.js khi có backend
-    console.log('Đăng ký với:', values)
-    navigate(ROUTES.LOGIN)
+    login({ email: values.email, fullName: values.fullName })
+    navigate(ROUTES.PROFILE)
   }
 
   return (

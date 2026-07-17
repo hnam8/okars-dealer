@@ -14,7 +14,7 @@ import Cart from './pages/Cart'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/okars-dealer">
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />

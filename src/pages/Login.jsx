@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import FormField from '../components/common/FormField'
 import Button from '../components/common/Button'
 import { useFormValidation } from '../hooks/useFormValidation'
+import { useAuth } from '../context/AuthContext'
 import { isValidEmail } from '../utils/validators'
 import { ROUTES } from '../constants/routes'
 
@@ -20,20 +21,17 @@ const validationRules = {
 
 function Login() {
   const navigate = useNavigate()
-  const [submitError, setSubmitError] = useState('')
+  const { login } = useAuth()
   const { values, errors, handleChange, handleBlur, validateAll } =
     useFormValidation({ email: '', password: '' }, validationRules)
 
   function handleSubmit(e) {
     e.preventDefault()
-    setSubmitError('')
 
     const isValid = validateAll()
     if (!isValid) return
 
-    // Chưa có backend thật — giả lập đăng nhập thành công và chuyển hướng
-    // TODO: thay bằng gọi API thật qua services/authService.js khi có backend
-    console.log('Đăng nhập với:', values)
+    login({ email: values.email })
     navigate(ROUTES.PROFILE)
   }
 
@@ -66,10 +64,6 @@ function Login() {
           placeholder="••••••••"
           required
         />
-
-        {submitError && (
-          <p className="text-sm text-red-500 text-center">{submitError}</p>
-        )}
 
         <Button type="submit" className="w-full">
           Đăng nhập

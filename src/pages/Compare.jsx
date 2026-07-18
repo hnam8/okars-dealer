@@ -1,9 +1,11 @@
-import { HiX } from 'react-icons/hi'
-import Button from '../components/common/Button'
+import { useState } from 'react'
+import { HiX, HiPlus } from 'react-icons/hi'
+import { Link } from 'react-router-dom'
+import CompareCarPicker from '../components/car/CompareCarPicker'
 import { MOCK_CARS } from '../constants/mockCars'
 import { useCompare } from '../context/CompareContext'
 import { formatPrice, formatMileage } from '../utils/formatters'
-import { ROUTES } from '../constants/routes'
+import { carDetailPath } from '../constants/routes'
 
 const COMPARE_ROWS = [
   { label: 'Giá', getValue: (car) => formatPrice(car.price) },
@@ -17,87 +19,114 @@ const COMPARE_ROWS = [
 ]
 
 function Compare() {
-  const { compareIds, toggleCompare, clearCompare } = useCompare()
-  const compareCars = MOCK_CARS.filter((car) => compareIds.includes(car.id))
+  const { compareIds, toggleCompare, maxCompare } = useCompare()
+  const [pickerSlotIndex, setPickerSlotIndex] = useState(null)
 
-  if (compareCars.length === 0) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <h1 className="text-2xl font-bold text-text mb-3">So sánh xe</h1>
-        <p className="text-text/60 mb-6">
-          Chưa có xe nào được chọn để so sánh. Tick vào ô "So sánh xe này" trên các thẻ xe để bắt đầu.
-        </p>
-        <Button to={ROUTES.CARS}>Chọn xe để so sánh</Button>
-      </div>
-    )
+  // Lấy đúng xe theo THỨ TỰ đã chọn (compareIds), không theo thứ tự trong MOCK_CARS
+  const compareCars = compareIds
+    .map((id) => MOCK_CARS.find((car) => car.id === id))
+    .filter(Boolean)
+
+  const slots = Array.from({ length: maxCompare }, (_, i) => compareCars[i] || null)
+
+  function handleSelectCar(carId) {
+    toggleCompare(carId)
+  }
+
+  function handleRemove(carId) {
+    toggleCompare(carId)
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 md:px-6">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-text">So sánh xe</h1>
-        <button
-          onClick={clearCompare}
-          className="text-sm text-primary hover:underline"
-        >
-          Xóa tất cả
-        </button>
+      <h1 className="text-2xl md:text-3xl font-bold text-text mb-2">So sánh xe</h1>
+      <p className="text-text/60 mb-8">
+        Chọn tối đa {maxCompare} xe để xem chi tiết thông số song song
+      </p>
+
+      {/* 3 ô chọn xe */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {slots.map((car, index) =>
+          car ? (
+            <div
+              key={car.id}
+              className="relative bg-secondary/40 border border-border rounded-xl p-4"
+            >
+              <button
+                onClick={() => handleRemove(car.id)}
+                aria-label="Bỏ khỏi so sánh"
+                className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center rounded-full bg-white text-text/50 hover:text-accent shadow-sm"
+              >
+                <HiX size={16} />
+              </button>
+
+              <Link to={carDetailPath(car.id)}>
+                <img
+                  src={car.image}
+                  alt={`${car.brand} ${car.model}`}
+                  className="w-full h-32 object-cover rounded-lg mb-3"
+                />
+                <p className="text-xs text-text/60">{car.brand}</p>
+                <p className="font-semibold text-text hover:text-primary transition-colors">
+                  {car.model}
+                </p>
+              </Link>
+            </div>
+          ) : (
+            <button
+              key={`empty-${index}`}
+              onClick={() => setPickerSlotIndex(index)}
+              className="flex flex-col items-center justify-center gap-2 h-full min-h-[180px] border-2 border-dashed border-border rounded-xl text-text/50 hover:border-primary hover:text-primary transition-colors"
+            >
+              <HiPlus size={28} />
+              <span className="text-sm font-medium">Xe {index + 1}</span>
+            </button>
+          )
+        )}
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[600px] border-collapse">
-          <thead>
-            <tr>
-              <th className="text-left p-3 w-40"></th>
-              {compareCars.map((car) => (
-                <th key={car.id} className="p-3 align-top">
-                  <div className="relative bg-secondary border border-border rounded-xl p-4">
-                    <button
-                      onClick={() => toggleCompare(car.id)}
-                      aria-label="Bỏ khỏi so sánh"
-                      className="absolute top-2 right-2 text-text/40 hover:text-accent"
-                    >
-                      <HiX size={18} />
-                    </button>
-                    <img
-                      src={car.image}
-                      alt={`${car.brand} ${car.model}`}
-                      className="w-full h-32 object-cover rounded-lg mb-3"
-                    />
-                    <p className="text-sm text-text/60">{car.brand}</p>
-                    <p className="font-semibold text-text">{car.model}</p>
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {COMPARE_ROWS.map((row) => {
-              // Highlight nếu các giá trị trong hàng này khác nhau giữa các xe
-              const values = compareCars.map((car) => row.getValue(car))
-              const hasDifference = new Set(values).size > 1
+      {/* Bảng so sánh — chỉ hiện khi có từ 2 xe trở lên */}
+      {compareCars.length >= 2 ? (
+        <div className="overflow-x-auto mt-10">
+          <table className="w-full min-w-[500px] border-collapse">
+            <tbody>
+              {COMPARE_ROWS.map((row) => {
+                const values = compareCars.map((car) => row.getValue(car))
+                const hasDifference = new Set(values).size > 1
 
-              return (
-                <tr key={row.label} className="border-b border-border">
-                  <td className="p-3 text-sm font-medium text-text/60">
-                    {row.label}
-                  </td>
-                  {compareCars.map((car, index) => (
-                    <td
-                      key={car.id}
-                      className={`p-3 text-sm text-center ${
-                        hasDifference ? 'bg-accent/5 font-semibold text-text' : 'text-text/80'
-                      }`}
-                    >
-                      {values[index]}
+                return (
+                  <tr key={row.label} className="border-b border-border">
+                    <td className="p-3 text-sm font-medium text-text/60 w-40">
+                      {row.label}
                     </td>
-                  ))}
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
+                    {values.map((value, i) => (
+                      <td
+                        key={compareCars[i].id}
+                        className={`p-3 text-sm text-center ${
+                          hasDifference ? 'bg-accent/5 font-semibold text-text' : 'text-text/80'
+                        }`}
+                      >
+                        {value}
+                      </td>
+                    ))}
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="text-center text-text/50 mt-10">
+          Chọn thêm ít nhất {2 - compareCars.length} xe nữa để xem bảng so sánh chi tiết.
+        </p>
+      )}
+
+      <CompareCarPicker
+        isOpen={pickerSlotIndex !== null}
+        onClose={() => setPickerSlotIndex(null)}
+        excludeIds={compareIds}
+        onSelect={handleSelectCar}
+      />
     </div>
   )
 }

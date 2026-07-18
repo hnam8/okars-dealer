@@ -1,10 +1,19 @@
 import Button from '../common/Button'
+import ctaBg from '../../assets/cta-bg.png'
 import { ROUTES } from '../../constants/routes'
 
 function CtaSection() {
   return (
-    <section className="bg-primary">
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center md:px-6">
+    <section className="relative bg-primary overflow-hidden">
+      <img
+        src={ctaBg}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-primary/85" />
+
+      <div className="relative max-w-4xl mx-auto px-4 py-16 text-center md:px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-white">
           Sẵn sàng tìm chiếc xe mơ ước?
         </h2>

@@ -1,5 +1,6 @@
 import Button from '../common/Button'
 import CarIllustration from '../car/CarIllustration'
+import heroBg from '../../assets/hero-bg.png'
 import { HERO_CONTENT } from '../../constants/heroContent'
 
 function HeroBanner() {
@@ -7,12 +8,23 @@ function HeroBanner() {
 
   return (
     <section className="relative bg-primary overflow-hidden">
+      {/* Lớp 1: ảnh nền thật */}
+      <img
+        src={heroBg}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Lớp 2: overlay màu primary phủ lên ảnh, đảm bảo chữ trắng luôn đọc rõ */}
+      <div className="absolute inset-0 bg-primary/80" />
+
+      {/* Lớp 3 (giữ nguyên): hình tròn mờ trang trí từ Bước 7 */}
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
       <div className="absolute -bottom-32 -left-16 w-80 h-80 bg-accent/20 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 py-16 md:px-6 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Cột trái: nội dung text */}
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
               {title}
@@ -42,7 +54,6 @@ function HeroBanner() {
             </div>
           </div>
 
-          {/* Cột phải: minh họa xe — chỉ hiện từ tablet trở lên */}
           <div className="hidden lg:block">
             <CarIllustration />
           </div>

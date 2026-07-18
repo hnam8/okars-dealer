@@ -7,6 +7,7 @@ import {
 import { ROUTES } from '../../constants/routes'
 import { useCart } from '../../context/CartContext'
 import { useAuth } from '../../context/AuthContext'
+import logo from '../../assets/logo.png'
 
 const NAV_LINKS = [
   { label: 'Trang chủ', to: ROUTES.HOME },
@@ -51,8 +52,11 @@ function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4 md:px-6">
-        <Link to={ROUTES.HOME} className="text-xl font-bold text-primary">
-          OKars Dealer
+        <Link to={ROUTES.HOME} className="flex items-center gap-2">
+          <img src={logo} alt="OKars Dealer" className="h-11 w-auto" />
+          <span className="text-xl font-extrabold tracking-wide text-gray-900">
+            OKars Dealer
+          </span>
         </Link>
 
         <ul className="hidden md:flex items-center gap-8">

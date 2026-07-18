@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { HiOutlineMail, HiOutlinePhone, HiOutlineLocationMarker } from 'react-icons/hi'
+import { HiOutlineMail, HiOutlinePhone, HiOutlineLocationMarker, HiArrowRight } from 'react-icons/hi'
 import { ROUTES } from '../../constants/routes'
 import { SOCIAL_LINKS } from '../../constants/socialLinks'
+import logo from '../../assets/logo.png'
 
 const QUICK_LINKS = [
   { label: 'Trang chủ', to: ROUTES.HOME },
@@ -11,22 +13,69 @@ const QUICK_LINKS = [
   { label: 'Liên hệ', to: ROUTES.CONTACT },
 ]
 
-
-
 function Footer() {
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  function handleSubscribe(e) {
+    e.preventDefault()
+    if (!email) return
+    // TODO: gọi API đăng ký nhận tin thật khi có backend
+    console.log('Đăng ký nhận tin:', email)
+    setSubscribed(true)
+    setEmail('')
+  }
+
   return (
     <footer className="bg-secondary border-t border-border mt-auto">
+      {/* Newsletter — dải riêng nổi bật, đặt trên cùng của Footer */}
+      <div className="border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 py-8 md:px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+              <h3 className="font-semibold text-text">Đăng ký nhận tin</h3>
+              <p className="text-sm text-text/60 mt-1">
+                Nhận thông báo xe mới và ưu đãi sớm nhất
+              </p>
+            </div>
+
+            {subscribed ? (
+              <p className="text-sm text-primary font-medium">
+                Cảm ơn bạn đã đăng ký!
+              </p>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex w-full md:w-auto gap-2">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email của bạn"
+                  required
+                  className="flex-1 md:w-64 px-4 py-2.5 border border-border rounded-lg bg-background text-sm text-text focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                />
+                <button
+                  type="submit"
+                  aria-label="Đăng ký"
+                  className="shrink-0 w-11 h-11 flex items-center justify-center bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <HiArrowRight size={18} />
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 py-12 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Cột 1: Thương hiệu */}
           <div>
-            <h3 className="text-xl font-bold text-primary mb-3">OKars Dealer</h3>
-            <p className="text-sm text-text/70 leading-relaxed">
+            <img src={logo} alt="OKars Dealer" className="h-12 w-auto" />
+            <h2 className="text-xl font-bold text-text mt-2">OKars Dealer</h2>
+            <p className="text-sm text-text/70 leading-relaxed mt-4">
               Nền tảng mua bán xe hơi trực tuyến hiện đại, minh bạch và đáng tin cậy.
             </p>
           </div>
 
-          {/* Cột 2: Liên kết nhanh */}
           <div>
             <h4 className="font-semibold text-text mb-3">Liên kết nhanh</h4>
             <ul className="flex flex-col gap-2">
@@ -43,7 +92,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Cột 3: Thông tin liên hệ */}
           <div>
             <h4 className="font-semibold text-text mb-3">Liên hệ</h4>
             <ul className="flex flex-col gap-3">
@@ -62,7 +110,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Cột 4: Social media */}
           <div>
             <h4 className="font-semibold text-text mb-3">Theo dõi chúng tôi</h4>
             <div className="flex gap-3">
@@ -82,7 +129,6 @@ function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="border-t border-border mt-8 pt-6 text-center text-sm text-text/60">
           © {new Date().getFullYear()} OKars Dealer. All rights reserved.
         </div>

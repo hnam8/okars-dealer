@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ScrollToTop from './components/common/ScrollToTop'
 import MainLayout from './layouts/MainLayout'
 import Home from './pages/Home'
 import Cars from './pages/Cars'
@@ -15,6 +16,7 @@ import Cart from './pages/Cart'
 function App() {
   return (
     <BrowserRouter basename="/okars-dealer">
+      <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />

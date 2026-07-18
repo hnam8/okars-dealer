@@ -20,11 +20,11 @@ export const MOCK_CARS = [
     status: 'available',
     image: 'https://placehold.co/600x400/2563EB/FFFFFF?text=Toyota+Camry',
     images: [
-    'https://placehold.co/800x600/2563EB/FFFFFF?text=Camry+1',
-    'https://placehold.co/800x600/1e40af/FFFFFF?text=Camry+2',
-    'https://placehold.co/800x600/1e3a8a/FFFFFF?text=Camry+3',
-    'https://placehold.co/800x600/2563EB/FFFFFF?text=Camry+4',
-  ],
+      'https://placehold.co/800x600/2563EB/FFFFFF?text=Camry+1',
+      'https://placehold.co/800x600/1e40af/FFFFFF?text=Camry+2',
+      'https://placehold.co/800x600/1e3a8a/FFFFFF?text=Camry+3',
+      'https://placehold.co/800x600/2563EB/FFFFFF?text=Camry+4',
+    ],
   },
   {
     id: 2,
@@ -45,7 +45,13 @@ export const MOCK_CARS = [
     dealer: 'Mazda Giải Phóng',
     location: 'Hà Nội',
     status: 'available',
-    image: 'https://placehold.co/600x400/2563EB/FFFFFF?text=Mazda+CX-5',
+    image: 'https://placehold.co/600x400/DC2626/FFFFFF?text=Mazda+CX-5',
+    images: [
+      'https://placehold.co/800x600/DC2626/FFFFFF?text=CX-5+1',
+      'https://placehold.co/800x600/B91C1C/FFFFFF?text=CX-5+2',
+      'https://placehold.co/800x600/991B1B/FFFFFF?text=CX-5+3',
+      'https://placehold.co/800x600/DC2626/FFFFFF?text=CX-5+4',
+    ],
   },
   {
     id: 3,
@@ -66,7 +72,13 @@ export const MOCK_CARS = [
     dealer: 'Honda Ô tô Mỹ Đình',
     location: 'Hà Nội',
     status: 'available',
-    image: 'https://placehold.co/600x400/2563EB/FFFFFF?text=Honda+CR-V',
+    image: 'https://placehold.co/600x400/6B7280/FFFFFF?text=Honda+CR-V',
+    images: [
+      'https://placehold.co/800x600/6B7280/FFFFFF?text=CR-V+1',
+      'https://placehold.co/800x600/4B5563/FFFFFF?text=CR-V+2',
+      'https://placehold.co/800x600/374151/FFFFFF?text=CR-V+3',
+      'https://placehold.co/800x600/6B7280/FFFFFF?text=CR-V+4',
+    ],
   },
   {
     id: 4,
@@ -87,6 +99,12 @@ export const MOCK_CARS = [
     dealer: 'VinFast Phạm Văn Đồng',
     location: 'Hà Nội',
     status: 'sold',
-    image: 'https://placehold.co/600x400/2563EB/FFFFFF?text=VinFast+VF8',
+    image: 'https://placehold.co/600x400/059669/FFFFFF?text=VinFast+VF8',
+    images: [
+      'https://placehold.co/800x600/059669/FFFFFF?text=VF8+1',
+      'https://placehold.co/800x600/047857/FFFFFF?text=VF8+2',
+      'https://placehold.co/800x600/065F46/FFFFFF?text=VF8+3',
+      'https://placehold.co/800x600/059669/FFFFFF?text=VF8+4',
+    ],
   },
 ]

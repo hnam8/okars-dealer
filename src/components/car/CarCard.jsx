@@ -1,24 +1,21 @@
 import { Link } from 'react-router-dom'
-import { HiHeart, HiOutlineHeart, HiOutlineShoppingCart, HiShoppingCart } from 'react-icons/hi'
+import { HiHeart, HiOutlineHeart, HiOutlineShoppingCart, HiShoppingCart, HiOutlineCalendar, HiOutlineEye } from 'react-icons/hi'
 import Badge from '../common/Badge'
-import { formatPrice, formatMileage } from '../../utils/formatters'
+import { formatPrice, formatMileage, formatRelativeDate, formatViews } from '../../utils/formatters'
 import { carDetailPath } from '../../constants/routes'
 import { useFavorites } from '../../context/FavoritesContext'
-import { useCompare } from '../../context/CompareContext'
 import { useCart } from '../../context/CartContext'
 
 function CarCard({ car }) {
   const {
     id, brand, model, year, price, mileage,
-    fuelType, transmission, image, status,
+    fuelType, transmission, image, status, updatedAt, views,
   } = car
 
   const isSold = status === 'sold'
   const { isFavorite, toggleFavorite } = useFavorites()
-  const { isInCompare, toggleCompare } = useCompare()
   const { isInCart, addToCart, removeFromCart } = useCart()
   const favorited = isFavorite(id)
-  const compared = isInCompare(id)
   const inCart = isInCart(id)
 
   return (
@@ -81,15 +78,17 @@ function CarCard({ car }) {
           <span>{transmission}</span>
         </div>
 
-        <label className="flex items-center gap-2 mt-3 pt-3 border-t border-border text-sm text-text/70 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={compared}
-            onChange={() => toggleCompare(id)}
-            className="accent-primary"
-          />
-          So sánh xe này
-        </label>
+        {/* Thông tin tin đăng: ngày cập nhật + lượt xem — thay thế checkbox compare cũ */}
+        <div className="flex items-center justify-between mt-3 pt-3 border-t border-border text-xs text-text/50">
+          <span className="flex items-center gap-1">
+            <HiOutlineCalendar size={14} />
+            {formatRelativeDate(updatedAt)}
+          </span>
+          <span className="flex items-center gap-1">
+            <HiOutlineEye size={14} />
+            {formatViews(views)} lượt xem
+          </span>
+        </div>
       </div>
     </div>
   )

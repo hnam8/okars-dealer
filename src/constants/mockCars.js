@@ -25,6 +25,8 @@ export const MOCK_CARS = [
       'https://placehold.co/800x600/1e3a8a/FFFFFF?text=Camry+3',
       'https://placehold.co/800x600/2563EB/FFFFFF?text=Camry+4',
     ],
+    updatedAt: '2026-07-15',
+    views: 1284,
   },
   {
     id: 2,
@@ -52,6 +54,8 @@ export const MOCK_CARS = [
       'https://placehold.co/800x600/991B1B/FFFFFF?text=CX-5+3',
       'https://placehold.co/800x600/DC2626/FFFFFF?text=CX-5+4',
     ],
+    updatedAt: '2026-07-10',
+    views: 856,
   },
   {
     id: 3,
@@ -79,6 +83,8 @@ export const MOCK_CARS = [
       'https://placehold.co/800x600/374151/FFFFFF?text=CR-V+3',
       'https://placehold.co/800x600/6B7280/FFFFFF?text=CR-V+4',
     ],
+    updatedAt: '2026-07-17',
+    views: 2103,
   },
   {
     id: 4,
@@ -106,5 +112,7 @@ export const MOCK_CARS = [
       'https://placehold.co/800x600/065F46/FFFFFF?text=VF8+3',
       'https://placehold.co/800x600/059669/FFFFFF?text=VF8+4',
     ],
+    updatedAt: '2026-07-05',
+    views: 674,
   },
 ]

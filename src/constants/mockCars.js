@@ -1,3 +1,17 @@
+// Quét TẤT CẢ ảnh trong mọi thư mục con của cars/ (dùng ** để quét đệ quy nhiều cấp)
+const carImageModules = import.meta.glob(
+  '/src/assets/cars/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}',
+  { eager: true, import: 'default' }
+)
+
+// Lọc đúng ảnh thuộc 1 xe, dựa theo đường dẫn thư mục Brand/Model chính xác
+function getCarImages(folderPath) {
+  return Object.keys(carImageModules)
+    .filter((path) => path.includes(`/cars/${folderPath}/`))
+    .sort()
+    .map((path) => carImageModules[path])
+}
+
 export const MOCK_CARS = [
   {
     id: 1,
@@ -18,15 +32,10 @@ export const MOCK_CARS = [
     dealer: 'Toyota Long Biên',
     location: 'Hà Nội',
     status: 'available',
-    image: 'https://placehold.co/600x400/2563EB/FFFFFF?text=Toyota+Camry',
-    images: [
-      'https://placehold.co/800x600/2563EB/FFFFFF?text=Camry+1',
-      'https://placehold.co/800x600/1e40af/FFFFFF?text=Camry+2',
-      'https://placehold.co/800x600/1e3a8a/FFFFFF?text=Camry+3',
-      'https://placehold.co/800x600/2563EB/FFFFFF?text=Camry+4',
-    ],
     updatedAt: '2026-07-15',
     views: 1284,
+    images: getCarImages('Toyota/Camry 2.5Q 2024'),
+    image: getCarImages('Toyota/Camry 2.5Q 2024')[0],
   },
   {
     id: 2,
@@ -47,15 +56,10 @@ export const MOCK_CARS = [
     dealer: 'Mazda Giải Phóng',
     location: 'Hà Nội',
     status: 'available',
-    image: 'https://placehold.co/600x400/DC2626/FFFFFF?text=Mazda+CX-5',
-    images: [
-      'https://placehold.co/800x600/DC2626/FFFFFF?text=CX-5+1',
-      'https://placehold.co/800x600/B91C1C/FFFFFF?text=CX-5+2',
-      'https://placehold.co/800x600/991B1B/FFFFFF?text=CX-5+3',
-      'https://placehold.co/800x600/DC2626/FFFFFF?text=CX-5+4',
-    ],
     updatedAt: '2026-07-10',
     views: 856,
+    images: getCarImages('Mazda/CX-5 2.0 Pre 2023'),
+    image: getCarImages('Mazda/CX-5 2.0 Pre 2023')[0],
   },
   {
     id: 3,
@@ -76,15 +80,10 @@ export const MOCK_CARS = [
     dealer: 'Honda Ô tô Mỹ Đình',
     location: 'Hà Nội',
     status: 'available',
-    image: 'https://placehold.co/600x400/6B7280/FFFFFF?text=Honda+CR-V',
-    images: [
-      'https://placehold.co/800x600/6B7280/FFFFFF?text=CR-V+1',
-      'https://placehold.co/800x600/4B5563/FFFFFF?text=CR-V+2',
-      'https://placehold.co/800x600/374151/FFFFFF?text=CR-V+3',
-      'https://placehold.co/800x600/6B7280/FFFFFF?text=CR-V+4',
-    ],
     updatedAt: '2026-07-17',
     views: 2103,
+    images: getCarImages('Honda/CR-V 1.5 L 2024'),
+    image: getCarImages('Honda/CR-V 1.5 L 2024')[0],
   },
   {
     id: 4,
@@ -105,14 +104,9 @@ export const MOCK_CARS = [
     dealer: 'VinFast Phạm Văn Đồng',
     location: 'Hà Nội',
     status: 'sold',
-    image: 'https://placehold.co/600x400/059669/FFFFFF?text=VinFast+VF8',
-    images: [
-      'https://placehold.co/800x600/059669/FFFFFF?text=VF8+1',
-      'https://placehold.co/800x600/047857/FFFFFF?text=VF8+2',
-      'https://placehold.co/800x600/065F46/FFFFFF?text=VF8+3',
-      'https://placehold.co/800x600/059669/FFFFFF?text=VF8+4',
-    ],
     updatedAt: '2026-07-05',
     views: 674,
+    images: getCarImages('VinFast/VF 8 Eco 2024'),
+    image: getCarImages('VinFast/VF 8 Eco 2024')[0],
   },
 ]

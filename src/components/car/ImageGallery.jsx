@@ -1,16 +1,17 @@
 import { useState, useRef } from 'react'
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
+import { HiChevronLeft, HiChevronRight, HiOutlineArrowsExpand } from 'react-icons/hi'
+import ImageLightbox from './ImageLightbox'
 
-// Khoảng cách vuốt tối thiểu (px) để tính là 1 lần chuyển ảnh,
-// tránh việc chạm nhẹ/vuốt nhầm cũng bị tính là swipe
 const SWIPE_THRESHOLD = 50
 
 function ImageGallery({ images, alt }) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const totalImages = images.length
 
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
+  const hasSwiped = useRef(false)
 
   function goToPrevious() {
     setActiveIndex((prev) => (prev === 0 ? totalImages - 1 : prev - 1))
@@ -22,25 +23,31 @@ function ImageGallery({ images, alt }) {
 
   function handleTouchStart(e) {
     touchEndX.current = 0
+    hasSwiped.current = false
     touchStartX.current = e.touches[0].clientX
   }
 
   function handleTouchMove(e) {
     touchEndX.current = e.touches[0].clientX
+    if (Math.abs(touchStartX.current - touchEndX.current) > 10) {
+      hasSwiped.current = true
+    }
   }
 
   function handleTouchEnd() {
     if (!touchEndX.current) return
-
     const distance = touchStartX.current - touchEndX.current
+    if (distance > SWIPE_THRESHOLD) goToNext()
+    else if (distance < -SWIPE_THRESHOLD) goToPrevious()
+  }
 
-    if (distance > SWIPE_THRESHOLD) {
-      // Vuốt sang trái → chuyển ảnh kế tiếp
-      goToNext()
-    } else if (distance < -SWIPE_THRESHOLD) {
-      // Vuốt sang phải → quay lại ảnh trước
-      goToPrevious()
+  function handleImageClick() {
+    // Nếu vừa mới vuốt (kéo ảnh) thì không mở lightbox, tránh mở nhầm ngay sau khi vuốt
+    if (hasSwiped.current) {
+      hasSwiped.current = false
+      return
     }
+    setIsLightboxOpen(true)
   }
 
   return (
@@ -49,12 +56,20 @@ function ImageGallery({ images, alt }) {
         <img
           src={images[activeIndex]}
           alt={`${alt} - ảnh ${activeIndex + 1}/${totalImages}`}
-          className="w-full h-80 md:h-[420px] object-cover select-none"
+          className="w-full h-80 md:h-[420px] object-cover select-none cursor-zoom-in"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          onClick={handleImageClick}
           draggable={false}
         />
+
+        {/* Gợi ý "bấm để xem lớn" — chỉ hiện khi hover trên desktop */}
+        <div className="hidden md:flex absolute inset-0 items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors pointer-events-none">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity w-11 h-11 flex items-center justify-center rounded-full bg-white/90 text-text">
+            <HiOutlineArrowsExpand size={20} />
+          </div>
+        </div>
 
         {totalImages > 1 && (
           <>
@@ -97,6 +112,16 @@ function ImageGallery({ images, alt }) {
             />
           ))}
         </div>
+      )}
+
+      {isLightboxOpen && (
+        <ImageLightbox
+          images={images}
+          alt={alt}
+          activeIndex={activeIndex}
+          onNavigate={setActiveIndex}
+          onClose={() => setIsLightboxOpen(false)}
+        />
       )}
     </div>
   )

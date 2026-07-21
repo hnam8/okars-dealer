@@ -1,5 +1,6 @@
+import { BRANDS } from '../../constants/brands'
+
 const FUEL_TYPES = ['Xăng', 'Dầu', 'Điện', 'Hybrid']
-const BRANDS_LIST = ['Toyota', 'Honda', 'Mazda', 'VinFast']
 
 function FilterPanel({ filters, onChange, onClear }) {
   return (
@@ -14,26 +15,24 @@ function FilterPanel({ filters, onChange, onClear }) {
         </button>
       </div>
 
-      {/* Lọc theo hãng */}
       <div>
         <p className="text-sm font-medium text-text mb-2">Hãng xe</p>
         <div className="flex flex-col gap-2">
-          {BRANDS_LIST.map((brand) => (
-            <label key={brand} className="flex items-center gap-2 text-sm text-text/70 cursor-pointer">
+          {BRANDS.map((brand) => (
+            <label key={brand.id} className="flex items-center gap-2 text-sm text-text/70 cursor-pointer">
               <input
                 type="radio"
                 name="brand"
-                checked={filters.brand === brand}
-                onChange={() => onChange({ brand })}
+                checked={filters.brand === brand.name}
+                onChange={() => onChange({ brand: brand.name })}
                 className="accent-primary"
               />
-              {brand}
+              {brand.name}
             </label>
           ))}
         </div>
       </div>
 
-      {/* Lọc theo nhiên liệu */}
       <div>
         <p className="text-sm font-medium text-text mb-2">Nhiên liệu</p>
         <div className="flex flex-col gap-2">

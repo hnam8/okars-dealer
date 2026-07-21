@@ -3,6 +3,7 @@
 @theme{
   /* Color Palette — mục 4 spec */
   --color-primary: #2563EB;
+  --color-primary-dark: #1E3A8A;
   --color-secondary: #F8FAFC;
   --color-accent: #F97316;
   --color-text: #111827;

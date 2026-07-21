@@ -1,64 +1,47 @@
-import Button from '../common/Button'
-import CarIllustration from '../car/CarIllustration'
+import QuickSearchCard from '../car/QuickSearchCard'
 import heroBg from '../../assets/hero-bg.png'
-import { HERO_CONTENT } from '../../constants/heroContent'
 
 function HeroBanner() {
-  const { title, subtitle, primaryCta, secondaryCta, stats } = HERO_CONTENT
-
   return (
-    <section className="relative bg-primary overflow-hidden">
-      {/* Lớp 1: ảnh nền thật */}
+    <section className="relative overflow-hidden min-h-[560px] md:min-h-[640px] flex items-center bg-primary-dark">
+      {/* Ảnh nền thật */}
       <img
         src={heroBg}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-corver opacity-90"
       />
 
-      {/* Lớp 2: overlay màu primary phủ lên ảnh, đảm bảo chữ trắng luôn đọc rõ */}
-      <div className="absolute inset-0 bg-primary/80" />
+      {/* Overlay tối nhẹ bên trái, giúp thẻ tìm kiếm và chữ luôn nổi rõ trên mọi vùng ảnh */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
 
-      {/* Lớp 3 (giữ nguyên): hình tròn mờ trang trí từ Bước 7 */}
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-32 -left-16 w-80 h-80 bg-accent/20 rounded-full blur-3xl" />
+      <div className="relative w-full max-w-7xl mx-auto px-4 md:px-6 py-16">
+        {/* Thẻ tìm kiếm nổi bên trái */}
+        <QuickSearchCard />
 
-      <div className="relative max-w-7xl mx-auto px-4 py-16 md:px-6 md:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-              {title}
-            </h1>
-            <p className="mt-6 text-lg text-white/80 leading-relaxed">
-              {subtitle}
-            </p>
-
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Button to={primaryCta.to} variant="accent" size="lg">
-                {primaryCta.label}
-              </Button>
-              <Button to={secondaryCta.to} variant="outline" size="lg">
-                {secondaryCta.label}
-              </Button>
-            </div>
-
-            <div className="mt-14 grid grid-cols-3 gap-6 max-w-lg">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-2xl md:text-3xl font-bold text-white">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-sm text-white/70">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="hidden lg:block">
-            <CarIllustration />
-          </div>
+        {/* Chữ phụ góc dưới phải, giống tinh thần tham khảo */}
+        <div className="hidden lg:block absolute bottom-16 right-6 text-right max-w-xs">
+          <p className="text-white/80 text-sm">
+            Trải nghiệm mua xe được cá nhân hóa.
+          </p>
+          <p className="text-white text-xl font-bold mt-1 leading-snug">
+            Xem xe tận nơi hoặc nhận tư vấn ngay tại nhà.
+          </p>
         </div>
       </div>
+
+      {/* Đường cong chuyển tiếp xuống section bên dưới */}
+      <svg
+        className="absolute bottom-0 left-0 w-full text-background"
+        viewBox="0 0 1440 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          fill="currentColor"
+          d="M0,60 C 360,120 1080,0 1440,60 L1440,100 L0,100 Z"
+        />
+      </svg>
     </section>
   )
 }
